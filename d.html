@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dhruv Raikwar | Full Stack Developer</title>
+
+  <meta
+    name="description"
+    content="Dhruv Raikwar — Full Stack Developer, Java & DSA enthusiast."
+  />
+
+  <style>
+    /* =========================
+       RESET
+    ========================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0d0d0d;
+      color: #f5f1e8;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       CUSTOM CURSOR
+    ========================= */
+
+    .cursor {
+      width: 10px;
+      height: 10px;
+      background: #ff7a18;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        background 0.2s ease;
+      box-shadow: 0 0 20px rgba(255, 122, 24, 0.6);
+    }
+
+    .cursor-ring {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 122, 24, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition:
+        width 0.25s ease,
+        height 0.25s ease,
+        border 0.25s ease;
+    }
+
+    body.hovering .cursor {
+      width: 18px;
+      height: 18px;
+      background: #f5f1e8;
+    }
+
+    body.hovering .cursor-ring {
+      width: 65px;
+      height: 65px;
+      border-color: #ff7a18;
+    }
+
+    /* =========================
+       BACKGROUND
+    ========================= */
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      z-index: 100;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(255, 122, 24, 0.07);
+      filter: blur(100px);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+
+      background: rgba(13, 13, 13, 0.72);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #ff7a18;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav ul a {
+      font-size: 14px;
+      color: #aaa;
+      transition: 0.3s;
+    }
+
+    nav ul a:hover {
+      color: #ff7a18;
+    }
+
+    .nav-btn {
+      padding: 10px 18px;
+      border: 1px solid #ff7a18;
+      border-radius: 30px;
+      color: #ff7a18;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #ff7a18;
+      color: #111;
+    }
+
+    /* =========================
+       GENERAL
+    ========================= */
+
+    section {
+      padding: 120px 7%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: clamp(40px, 6vw, 75px);
+      line-height: 0.95;
+      margin-bottom: 60px;
+      letter-spacing: -4px;
+    }
+
+    .section-title span {
+      color: #ff7a18;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 140px;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .available {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    .available i {
+      width: 8px;
+      height: 8px;
+      background: #7cff7c;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #7cff7c;
+    }
+
+    .hero h1 {
+      font-size: clamp(65px, 10vw, 145px);
+      line-height: 0.83;
+      letter-spacing: -8px;
+      margin-bottom: 35px;
+    }
+
+    .hero h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px #f5f1e8;
+    }
+
+    .hero h1 .orange {
+      color: #ff7a18;
+    }
+
+    .hero-description {
+      max-width: 600px;
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-size: 14px;
+      transition: 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .btn-primary {
+      background: #ff7a18;
+      color: #111;
+      border-color: #ff7a18;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(255,122,24,0.2);
+    }
+
+    .btn-secondary:hover {
+      border-color: #ff7a18;
+      color: #ff7a18;
+      transform: translateY(-4px);
+    }
+
+    .scroll-text {
+      position: absolute;
+      bottom: 35px;
+      left: 7%;
+      color: #666;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-number {
+      font-size: 160px;
+      line-height: 0.7;
+      color: #181818;
+      font-weight: 900;
+    }
+
+    .about-text {
+      color: #aaa;
+      font-size: 20px;
+      line-height: 1.8;
+    }
+
+    .about-text strong {
+      color: #f5f1e8;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 45px;
+    }
+
+    .stat {
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .stat h3 {
+      font-size: 32px;
+      color: #ff7a18;
+    }
+
+    .stat p {
+      color: #777;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    /* =========================
+       SKILLS
+    ========================= */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .skill {
+      padding: 30px;
+      min-height: 170px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.01)
+      );
+      transition: 0.4s;
+    }
+
+    .skill:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,122,24,0.4);
+    }
+
+    .skill-number {
+      color: #ff7a18;
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+
+    .skill h3 {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .skill p {
+      color: #777;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* =========================
+       PROJECTS
+    ========================= */
+
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .project {
+      position: relative;
+      min-height: 350px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      overflow: hidden;
+      background: #121212;
+      transition: 0.5s ease;
+    }
+
+    .project::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -100px;
+      bottom: -150px;
+      border-radius: 50%;
+      background: rgba(255,122,24,0.08);
+      filter: blur(50px);
+      transition: 0.5s;
+    }
+
+    .project:hover {
+      transform: translateX(10px);
+      border-color: rgba(255,122,24,0.35);
+    }
+
+    .project:hover::after {
+      transform: scale(1.5);
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .project-number {
+      color: #ff7a18;
+      font-size: 13px;
+    }
+
+    .project-arrow {
+      font-size: 30px;
+      color: #555;
+      transition: 0.3s;
+    }
+
+    .project:hover .project-arrow {
+      color: #ff7a18;
+      transform: rotate(-45deg);
+    }
+
+    .project h3 {
+      font-size: clamp(35px, 5vw, 60px);
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .project p {
+      color: #888;
+      max-width: 650px;
+      line-height: 1.7;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 25px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 7px 12px;
+      border-radius: 20px;
+      color: #999;
+      font-size: 12px;
+    }
+
+    /* =========================
+       EXPERIENCE
+    ========================= */
+
+    .experience {
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .experience-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 50px;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .experience-date {
+      color: #ff7a18;
+      font-size: 13px;
+    }
+
+    .experience h3 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .experience h4 {
+      color: #777;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .experience p {
+      color: #999;
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    .contact {
+      text-align: center;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact h2 {
+      font-size: clamp(55px, 9vw, 130px);
+      line-height: 0.85;
+      letter-spacing: -7px;
+      margin-bottom: 35px;
+    }
+
+    .contact h2 span {
+      color: #ff7a18;
+    }
+
+    .contact p {
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      padding: 12px 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      color: #aaa;
+      transition: 0.3s;
+    }
+
+    .social:hover {
+      color: #ff7a18;
+      border-color: #ff7a18;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      padding: 30px 7%;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    /* =========================
+       REVEAL ANIMATION
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      section {
+        padding: 90px 6%;
+      }
+
+      .hero h1 {
+        font-size: 70px;
+        letter-spacing: -5px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .about-number {
+        font-size: 100px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-item {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .project {
+        min-height: 300px;
+        padding: 25px;
+      }
+
+      .project-top {
+        margin-bottom: 60px;
+      }
+
+      .contact h2 {
+        letter-spacing: -4px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="noise"></div>
+  <div class="glow"></div>
+
+  <!-- Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <nav>
+    <a href="#home" class="logo">
+      DR<span>.</span>
+    </a>
+
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+    </ul>
+
+    <a href="#contact" class="nav-btn">
+      Let's Talk
+    </a>
+  </nav>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero" id="home">
+    <div class="container">
+
+      <div class="hero-content">
+
+        <div class="available">
+          <i></i>
+          Open to opportunities
+        </div>
+
+        <h1>
+          Dhruv<br>
+          <span class="outline">RAIKWAR</span><span class="orange">.</span>
+        </h1>
+
+        <p class="hero-description">
+          Full Stack Developer focused on building modern web
+          experiences, solving problems with Java & DSA,
+          and turning ideas into useful products.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">
+            View Projects ↗
+          </a>
+
+          <a href="#contact" class="btn btn-secondary">
+            Contact Me
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="scroll-text">
+      ↓ Scroll to explore
+    </div>
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+
+  <section id="about">
+    <div class="container reveal">
+
+      <h2 class="section-title">
+        A little <span>about</span> me.
+      </h2>
+
+      <div class="about-grid">
+
+        <div>
+          <div class="about-number">01</div>
+        </div>
+
+        <div class="about-text">
+
+          <p>
+            I'm <strong>Dhruv Raikwar</strong>, a Computer Science
+            Engineering student and aspiring Full Stack Developer.
+          </p>
+
+          <br>
+
+          <p>
+            I enjoy creating web applications, learning new
+            technologies and consistently improving my
+            problem-solving skills through Data Structures
+            and Algorithms.
+          </p>
+
+          <div class="stats">
+
+            <div class="stat">
+              <h3>7.5</h3>
+              <p>CGPA</p>
+            </div>
+
+            <div class="stat">
+              <h3>2027</h3>
+              <p>Graduation</p>
+            </div>
+
+            <div class="stat">
+              <h3>3+</h3>
+              <p>Projects</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       SKILLS
+  ========================== -->
+
+  <section id="skills">
+    <div class="container reveal">
+
+      <h2 class="section-title">
+        My <span>toolbox.</span>
+      </h2>
+
+      <div class="skills-grid">
+
+        <div class="skill">
+          <div class="skill-number">01</div>
+          <h3>Java</h3>
+          <p>
+            Problem solving and Data Structures & Algorithms.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">02</div>
+          <h3>JavaScript</h3>
+          <p>
+            Building interactive and dynamic web experiences.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">03</div>
+          <h3>Frontend</h3>
+          <p>
+            HTML, CSS, responsive layouts and modern UI.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">04</div>
+          <h3>Node.js</h3>
+          <p>
+            Backend development and server-side JavaScript.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">05</div>
+          <h3>Express</h3>
+          <p>
+            Building REST APIs and backend applications.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">06</div>
+          <h3>MongoDB</h3>
+          <p>
+            Working with NoSQL databases and application data.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">07</div>
+          <h3>Git</h3>
+          <p>
+            Version control and collaborative development.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">08</div>
+          <h3>GitHub</h3>
+          <p>
+            Managing repositories and showcasing projects.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-number">09</div>
+          <h3>VS Code</h3>
+          <p>
+            Daily development environment for building projects.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       PROJECTS
+  ========================== -->
+
+  <section id="projects">
+    <div class="container reveal">
+
+      <h2 class="section-title">
+        Selected <span>work.</span>
+      </h2>
+
+      <div class="projects">
+
+        <!-- PROJECT 1 -->
+
+        <a href="#" class="project hover-target">
+
+          <div class="project-top">
+            <span class="project-number">01 / 03</span>
+            <span class="project-arrow">↗</span>
+          </div>
+
+          <h3>FoodyMart</h3>
+
+          <p>
+            An online food ordering website with a clean interface,
+            interactive cart functionality, product listing and
+            filtering features.
+          </p>
+
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+
+        </a>
+
+
+        <!-- PROJECT 2 -->
+
+        <a href="#" class="project hover-target">
+
+          <div class="project-top">
+            <span class="project-number">02 / 03</span>
+            <span class="project-arrow">↗</span>
+          </div>
+
+          <h3>Moonlight</h3>
+
+          <p>
+            A responsive movie streaming website featuring
+            search, filtering and a clean user interface
+            focused on smooth UX.
+          </p>
+
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+
+        </a>
+
+
+        <!-- PROJECT 3 -->
+
+        <a href="#" class="project hover-target">
+
+          <div class="project-top">
+            <span class="project-number">03 / 03</span>
+            <span class="project-arrow">↗</span>
+          </div>
+
+          <h3>Diet & Fitness</h3>
+
+          <p>
+            A fitness tracking web application that manages
+            user data using Local Storage and provides
+            an interactive experience.
+          </p>
+
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Node.js</span>
+          </div>
+
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       EXPERIENCE
+  ========================== -->
+
+  <section id="experience">
+    <div class="container reveal">
+
+      <h2 class="section-title">
+        Where I've <span>learned.</span>
+      </h2>
+
+      <div class="experience">
+
+        <div class="experience-item">
+
+          <div class="experience-date">
+            2025
+          </div>
+
+          <div>
+            <h3>MERN Stack Summer Training</h3>
+
+            <h4>
+              Postmortem Shala · 2 Months
+            </h4>
+
+            <p>
+              Completed MERN Stack summer training and developed
+              projects including FoodyMart and Hotel Booking System.
+              Strengthened practical knowledge of full-stack
+              development.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="experience-item">
+
+          <div class="experience-date">
+            2023 — 2027
+          </div>
+
+          <div>
+            <h3>B.Tech — Computer Science Engineering</h3>
+
+            <h4>
+              Kali Charan Nigam Institute of Technology, Banda
+            </h4>
+
+            <p>
+              Currently pursuing Computer Science Engineering
+              with a focus on web development, programming,
+              problem solving and Data Structures & Algorithms.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       CONTACT
+  ========================== -->
+
+  <section id="contact" class="contact">
+
+    <div class="container reveal">
+
+      <h2>
+        Let's build<br>
+        something <span>great.</span>
+      </h2>
+
+      <p>
+        Have an idea, opportunity or just want to connect?
+      </p>
+
+      <div class="socials">
+
+        <!-- Replace # with your real links -->
+
+        <a
+          href="#"
+          class="social hover-target"
+          target="_blank"
+        >
+          GitHub ↗
+        </a>
+
+        <a
+          href="#"
+          class="social hover-target"
+          target="_blank"
+        >
+          LinkedIn ↗
+        </a>
+
+        <a
+          href="mailto:your-email@example.com"
+          class="social hover-target"
+        >
+          Email ↗
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <span>
+      © 2026 Dhruv Raikwar
+    </span>
+
+    <span>
+      Built with HTML · CSS · JavaScript
+    </span>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* =========================
+       CUSTOM CURSOR
+    ========================== */
+
+    const cursor = document.querySelector(".cursor");
+    const ring = document.querySelector(".cursor-ring");
+    const glow = document.querySelector(".glow");
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let ringX = 0;
+    let ringY = 0;
+
+    document.addEventListener("mousemove", (e) => {
+
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      cursor.style.left = mouseX + "px";
+      cursor.style.top = mouseY + "px";
+
+      glow.style.left = mouseX + "px";
+      glow.style.top = mouseY + "px";
+
+    });
+
+
+    function animateCursor() {
+
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+
+      ring.style.left = ringX + "px";
+      ring.style.top = ringY + "px";
+
+      requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+
+    /* =========================
+       CURSOR HOVER
+    ========================= */
+
+    const hoverTargets =
+      document.querySelectorAll(
+        "a, button, .skill, .project"
+      );
+
+    hoverTargets.forEach((item) => {
+
+      item.addEventListener("mouseenter", () => {
+        document.body.classList.add("hovering");
+      });
+
+      item.addEventListener("mouseleave", () => {
+        document.body.classList.remove("hovering");
+      });
+
+    });
+
+
+    /* =========================
+       SCROLL REVEAL
+    ========================= */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const revealObserver =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+
+    /* =========================
+       MAGNETIC BUTTON EFFECT
+    ========================= */
+
+    const buttons =
+      document.querySelectorAll(".btn, .nav-btn");
+
+    buttons.forEach((button) => {
+
+      button.addEventListener("mousemove", (e) => {
+
+        const rect =
+          button.getBoundingClientRect();
+
+        const x =
+          e.clientX - rect.left - rect.width / 2;
+
+        const y =
+          e.clientY - rect.top - rect.height / 2;
+
+        button.style.transform =
+          `translate(${x * 0.12}px, ${y * 0.12}px)`;
+
+      });
+
+      button.addEventListener("mouseleave", () => {
+
+        button.style.transform =
+          "translate(0, 0)";
+
+      });
+
+    });
+
+
+    /* =========================
+       PROJECT TILT EFFECT
+    ========================= */
+
+    const projects =
+      document.querySelectorAll(".project");
+
+    projects.forEach((project) => {
+
+      project.addEventListener("mousemove", (e) => {
+
+        const rect =
+          project.getBoundingClientRect();
+
+        const x =
+          e.clientX - rect.left;
+
+        const y =
+          e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX =
+          ((y - centerY) / centerY) * -2;
+
+        const rotateY =
+          ((x - centerX) / centerX) * 2;
+
+        project.style.transform =
+          `perspective(1000px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateX(5px)`;
+
+      });
+
+      project.addEventListener("mouseleave", () => {
+
+        project.style.transform =
+          "perspective(1000px) rotateX(0) rotateY(0)";
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
